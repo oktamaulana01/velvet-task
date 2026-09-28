@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velvet Task — Rebel To-Do Tracker</title>
+  <meta name="description" content="A Persona 5-inspired to-do tracker. Rebel against the mundane, one task at a time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="halftone-bg" aria-hidden="true"></div>
+
+  <!-- ======= HEADER ======= -->
+  <header class="masthead">
+    <div class="burst logo-burst" aria-hidden="true"><span>VT</span></div>
+    <div class="masthead-text">
+      <h1 class="game-title">VELVET <span class="red">TASK</span></h1>
+      <p class="tagline">Rebel against the mundane &mdash; one task at a time.</p>
+      <div class="guest-container">
+        <p class="guest-line" id="guestLine"></p>
+        <button id="reopenContract" class="btn-contract-link hidden" type="button" title="Buka Kontrak Velvet Room">📜 KONTRAK</button>
+      </div>
+    </div>
+    <div class="masthead-actions">
+      <div class="streak-box">
+        <div class="streak-num" id="streakNum">0</div>
+        <div class="streak-label">DAY<br>STREAK</div>
+      </div>
+      <button id="soundToggle" class="sound-btn" type="button" aria-label="Toggle Sound Effects" title="Aktif/Nonaktifkan Audio FX">
+        <span class="sound-icon" id="soundIcon">🔊</span>
+        <span class="sound-label" id="soundLabel">SFX ON</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======= MAIN ======= -->
+  <main class="container">
+    <!-- Add task panel -->
+    <section class="panel add-panel">
+      <form id="taskForm" autocomplete="off">
+        <input id="taskInput" type="text" maxlength="90" placeholder="Enter a new target&hellip;" required>
+        <select id="arcanaSelect" aria-label="Pilih Arcana"></select>
+        <div class="due-field">
+          <label for="taskDueDate" class="due-label">DEADLINE:</label>
+          <input id="taskDueDate" type="date" aria-label="Batas waktu (Deadline, opsional)">
+        </div>
+        <button type="submit" class="btn-add">ADD&nbsp;TARGET</button>
+      </form>
+      <div class="filters" role="tablist" aria-label="Filter tugas">
+        <button class="chip active" data-filter="all">ALL</button>
+        <button class="chip" data-filter="active">ACTIVE</button>
+        <button class="chip" data-filter="urgent">⚠️ URGENT / DEADLINE</button>
+        <button class="chip" data-filter="done">ELIMINATED</button>
+      </div>
+    </section>
+
+    <div class="board">
+      <!-- Task list -->
+      <section class="panel tasks-col">
+        <h2 class="section-title"><span>TARGETS</span></h2>
+        <ul id="taskList" class="task-list"></ul>
+        <p id="emptyMsg" class="empty-msg">No targets yet, rebel.<br>Add your first one above.</p>
+      </section>
+
+      <!-- Confidant ranks -->
+      <aside class="panel ranks-col">
+        <h2 class="section-title"><span>CONFIDANT RANKS</span></h2>
+        <p class="ranks-hint">Complete targets to deepen your bond with each Arcana.</p>
+        <div id="ranks" class="ranks"></div>
+      </aside>
+    </div>
+
+    <!-- System Data Archive (Backup & Restore) -->
+    <section class="panel system-panel">
+      <div class="system-header">
+        <h2 class="section-title"><span>SYSTEM ARCHIVE</span></h2>
+        <span class="system-tagline">Data Backup &amp; Recovery</span>
+      </div>
+      <div class="system-body">
+        <p class="system-desc">Cadangkan semua progres misi dan tingkatan Arcana ke berkas JSON atau pulihkan data dari cadangan sebelumnya.</p>
+        <div class="system-actions">
+          <button id="exportBtn" class="btn-sys" type="button">
+            <span>📥 EXPORT DATA (JSON)</span>
+          </button>
+          <label for="importFileInput" class="btn-sys btn-sys-alt" tabindex="0" role="button">
+            <span>📤 IMPORT DATA (JSON)</span>
+            <input id="importFileInput" type="file" accept=".json,application/json" class="hidden-file-input">
+          </label>
+        </div>
+        <div id="systemNotice" class="system-notice hidden" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>VELVET TASK &mdash; a fan-inspired project. Not affiliated with ATLUS/SEGA.</p>
+      <p>Data tersimpan lokal di browser kamu (localStorage).</p>
+    </footer>
+  </main>
+
+  <!-- ======= ELIMINATED FLASH ======= -->
+  <div id="flash" class="flash" aria-hidden="true">
+    <div class="burst flash-burst"><span id="flashText">TARGET<br>ELIMINATED!</span></div>
+  </div>
+
+  <!-- ======= INTRO MODAL (Velvet Room) ======= -->
+  <div id="introModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="modal-card">
+      <button id="closeModalBtn" class="modal-close" type="button" aria-label="Tutup Kontrak">&times;</button>
+      <div class="modal-velvet"></div>
+      <h2 id="introTitle" class="game-title small">THE VELVET ROOM</h2>
+      <p class="modal-text">
+        Welcome&hellip; to a room between dream and reality.<br><br>
+        Here, your <strong class="red">desires</strong> take the form of <strong>targets</strong>.
+        Strike them down, and your <strong>bonds</strong> with the Arcana shall grow stronger.<br><br>
+        Now&hellip; tell me your name, guest.
+      </p>
+      <form id="nameForm" autocomplete="off">
+        <input id="nameInput" type="text" maxlength="24" placeholder="Your name&hellip;" required>
+        <button type="submit" class="btn-add">SIGN THE CONTRACT</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
