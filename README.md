@@ -59,5 +59,6 @@ Lalu buka alamat yang tertera (biasanya `http://localhost:3000`).
 
 ---
 
-## 📄 Lisensi
-Projek ini dibuat sebagai projek penggemar terinspirasi oleh Persona 5. Persona 5 adalah merek dagang ATLUS / SEGA.
+## 📄 Lisensi & Kredit
+Projek ini dibuat sebagai projek penggemar terinspirasi oleh Persona 5 oleh **Botan**.
+Persona 5 adalah merek dagang ATLUS / SEGA.

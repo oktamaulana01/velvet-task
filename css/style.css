@@ -535,6 +535,31 @@ body {
   margin-top: 2.5rem; text-align: center;
   font-size: .75rem; color: var(--gray); line-height: 1.8;
 }
+.footer-credit {
+  font-size: .92rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--paper);
+  margin-bottom: .35rem;
+}
+.footer-author {
+  color: #fff;
+  background: var(--red);
+  font-family: 'Anton', Impact, sans-serif;
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+  display: inline-block;
+  transform: skewX(-6deg);
+  padding: .08rem .55rem;
+  margin-left: .3rem;
+  box-shadow: 2px 2px 0 #000;
+  border: 1px solid #000;
+}
+.footer-sub {
+  font-size: .72rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
 
 @media (max-width: 640px) {
   .masthead { flex-wrap: wrap; }
